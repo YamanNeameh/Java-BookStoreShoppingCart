@@ -45,6 +45,9 @@ public class CartController extends HttpServlet {
 				case "/addcart":
 					 addToCart(request, response);
            break;
+				case "/delete":
+					 deleteFromCart(request, response);
+          break;
         default:
            break;
 			}
@@ -55,6 +58,15 @@ public class CartController extends HttpServlet {
 
 		response.sendRedirect("../ShoppingCart.jsp");
 	}
+
+	
+	 protected void deleteFromCart(HttpServletRequest request, HttpServletResponse response)
+				throws ServletException, IOException {
+		 HttpSession session = request.getSession();
+		 int index = Integer.parseInt(request.getParameter("index"));
+		 ShoppingCart cart = (ShoppingCart)session.getAttribute("cart");
+		 cart.deleteCartItem(index);
+		  }
 
   protected void addToCart(HttpServletRequest request, HttpServletResponse response)
 		throws ServletException, IOException {
